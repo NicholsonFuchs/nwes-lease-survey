@@ -207,7 +207,11 @@ td.n{width:48px} td.b{font-weight:600}
 .contact .wrap{padding-block:88px;display:grid;gap:16px;justify-items:center}
 .contact h2{font-size:clamp(30px,4.5vw,48px);letter-spacing:-.03em;line-height:1.1}
 .contact .sub{color:var(--dark-muted);font-size:19px;max-width:46ch}
-.card{display:grid;gap:4px;background:#1D1D1F;border-radius:var(--r-lg);padding:28px 40px;margin-top:20px;min-width:min(100%,380px)}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;width:100%;max-width:760px;margin-top:8px}
+@media(max-width:640px){.cards{grid-template-columns:1fr}}
+.card{display:grid;gap:4px;background:#1D1D1F;border-radius:var(--r-lg);padding:28px 24px;min-width:0}
+.card a{text-decoration:none}
+.card .em{font-size:15px;word-break:break-all}
 .card b{font-size:22px;letter-spacing:-.02em}
 .card .t{color:var(--dark-muted);font-size:14px;margin-bottom:8px}
 .card .row{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px;font-size:16px}
@@ -248,9 +252,9 @@ td.n{width:48px} td.b{font-weight:600}
 <main id="top">
 <section class="hero">
   <div class="wrap">
-    <p class="kicker">Lease survey for Northwest Electric &amp; Solar</p>
-    <h1>Eight spaces. One next shop.</h1>
-    <p class="lede">Industrial and flex options from 8,042 to 14,400 SF, all within 10 miles of the Kenmore shop.</p>
+    <p class="kicker">Prepared for Northwest Electric &amp; Solar</p>
+    <h1>Lease Survey</h1>
+    <p class="lede">Eight industrial and flex spaces, 8,042 to 14,400 SF, within 10 miles of the Kenmore shop.</p>
     <div class="cta"><a href="#map">See the map</a><a href="#compare">Compare them</a><a href="#spaces">Browse the spaces</a></div>
     <div class="figs num" id="figs"></div>
   </div>
@@ -259,8 +263,8 @@ td.n{width:48px} td.b{font-weight:600}
 <section class="band" id="map">
   <div class="wrap wide">
     <div class="sec-head">
-      <h2>Close to home.</h2>
-      <p>Five along the I-5 corridor from Mountlake Terrace to Everett. Three on the Eastside, minutes from the current shop.</p>
+      <h2>Map</h2>
+      <p>All eight spaces sit along the I-5 and I-405 corridors between Mountlake Terrace, Everett and Woodinville.</p>
     </div>
     <div class="mapwrap">
       <div id="lmap" aria-label="Satellite map of the eight spaces and the Kenmore shop"></div>
@@ -306,7 +310,7 @@ td.n{width:48px} td.b{font-weight:600}
 <section class="band alt" id="compare">
   <div class="wrap wide">
     <div class="sec-head">
-      <h2>Side by side.</h2>
+      <h2>Comparison</h2>
       <p>Figures come straight from each listing flyer. Click a row to jump to that space.</p>
     </div>
     <div class="segrow"><div class="seg" role="group" aria-label="Sort the table">
@@ -327,7 +331,7 @@ td.n{width:48px} td.b{font-weight:600}
 <section class="band" id="spaces">
   <div class="wrap wide">
     <div class="sec-head">
-      <h2>The spaces.</h2>
+      <h2>Property Details</h2>
       <p>Click any photo to enlarge it. The last thumbnail on each space opens its floor plan.</p>
     </div>
     <div class="props" id="props"></div>
@@ -337,7 +341,7 @@ td.n{width:48px} td.b{font-weight:600}
 <section class="band alt" id="team">
   <div class="wrap">
     <div class="sec-head">
-      <h2>Your team.</h2>
+      <h2>Your Team</h2>
       <p>Kidder Mathews, Bellevue.</p>
     </div>
     <div class="team">
@@ -348,8 +352,7 @@ td.n{width:48px} td.b{font-weight:600}
           <p class="role">Senior Associate · Kidder Mathews</p>
           <div class="ct"><a href="tel:+14252419886">C 425.241.9886</a><a href="tel:+14254501145">T 425.450.1145</a><a href="mailto:carter.nicholson@kidder.com">carter.nicholson@kidder.com</a></div>
           <div class="bio">
-            <p>Carter joined Kidder Mathews in 2022 as a summer intern, where he gained valuable experience working alongside industry veterans.</p>
-            <p>Recognized for his dedication, strong work ethic, and passion for commercial real estate, Carter joined as an associate in 2023. With a commitment to excellence, Carter approaches every interaction with integrity, professionalism, and a client-centric focus, striving to deliver the highest level of service and value.</p>
+            <p>Carter joined Kidder Mathews in 2022. Recognized for his dedication, strong work ethic, and passion for commercial real estate, Carter approaches every interaction with integrity, professionalism, and a client-centric focus, striving to deliver the highest level of service and value.</p>
             <p>Prior to joining Kidder Mathews, Carter grew up in Bellevue, Washington, and graduated from Boise State University with a Bachelor of Business Administration in Marketing. Outside of work, Carter is passionate about golf, fishing, and maintaining an active lifestyle.</p>
           </div>
           <p class="edu">BBA, Marketing · Boise State University</p>
@@ -374,13 +377,20 @@ td.n{width:48px} td.b{font-weight:600}
 
 <section class="contact" id="contact">
   <div class="wrap">
-    <h2>Questions? Ready to tour?</h2>
-    <p class="sub">Call or email any time.</p>
-    <div class="card">
-      <b>Carter Nicholson</b>
-      <span class="t">Senior Associate · Kidder Mathews</span>
-      <div class="row"><div><span>Cell</span><a href="tel:+14252419886" style="text-decoration:none">425.241.9886</a></div><div><span>Office</span><a href="tel:+14254501145" style="text-decoration:none">425.450.1145</a></div></div>
-      <div class="row"><div><span>Email</span><span id="em" style="color:inherit;font-size:16px;margin:0">carter.nicholson@kidder.com</span><button class="copy" type="button" id="copy-em">Copy</button></div></div>
+    <h2>Contact</h2>
+    <div class="cards">
+      <div class="card">
+        <b>Carter Nicholson</b>
+        <span class="t">Senior Associate · Kidder Mathews</span>
+        <div class="row"><div><span>Cell</span><a href="tel:+14252419886">425.241.9886</a></div><div><span>Office</span><a href="tel:+14254501145">425.450.1145</a></div></div>
+        <div class="row"><div><span>Email</span><span class="em" id="em1">carter.nicholson@kidder.com</span><button class="copy" type="button" data-copy="em1">Copy</button></div></div>
+      </div>
+      <div class="card">
+        <b>Greg Fuchs</b>
+        <span class="t">Senior Associate · Kidder Mathews</span>
+        <div class="row"><div><span>Cell</span><a href="tel:+12069922727">206.992.2727</a></div><div><span>Office</span><a href="tel:+14254501161">425.450.1161</a></div></div>
+        <div class="row"><div><span>Email</span><span class="em" id="em2">greg.fuchs@kidder.com</span><button class="copy" type="button" data-copy="em2">Copy</button></div></div>
+      </div>
     </div>
     <div class="logos"><img src="img/km-logo-white.png" alt="Kidder Mathews" width="134" height="34"><span class="x">for</span><img src="img/logo-white.png" alt="Northwest Electric &amp; Solar" width="55" height="34"></div>
     <p class="fine">Information is taken from the listing brokers' flyers and has not been independently verified. Rates are NNN unless noted. Subject to errors, omissions, prior lease or withdrawal without notice. Confidential, prepared October 2026.</p>
@@ -554,12 +564,12 @@ document.addEventListener('keydown', e => {
 });
 
 // copy email
-$('#copy-em').addEventListener('click', async e => {
-  const t = $('#em').textContent;
-  try { await navigator.clipboard.writeText(t); e.target.textContent = 'Copied'; }
-  catch { const r = document.createRange(); r.selectNodeContents($('#em')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); e.target.textContent = 'Selected'; }
-  setTimeout(() => e.target.textContent = 'Copy', 1600);
-});
+document.querySelectorAll('.copy').forEach(b => b.addEventListener('click', async () => {
+  const el = document.getElementById(b.dataset.copy);
+  try { await navigator.clipboard.writeText(el.textContent); b.textContent = 'Copied'; }
+  catch { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Selected'; }
+  setTimeout(() => b.textContent = 'Copy', 1600);
+}));
 </script>
 
 </body>
