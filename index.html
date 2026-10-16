@@ -140,15 +140,17 @@ section.band.alt{background:var(--bg2)}
 .seg button[aria-pressed="true"]{background:var(--tile);box-shadow:0 1px 4px rgba(0,0,0,.14)}
 .segrow{display:flex;justify-content:center}
 .tablebox{overflow-x:auto;border-radius:var(--r-lg);background:var(--tile);box-shadow:var(--shadow)}
-table{border-collapse:collapse;width:100%;min-width:1280px;font-size:14px;letter-spacing:-.01em}
-thead th{position:sticky;top:0;background:var(--tile);color:var(--faint);font-weight:500;font-size:12px;text-align:left;padding:18px 14px 12px;white-space:nowrap;border-bottom:1px solid var(--line)}
-thead th:nth-child(2){min-width:230px} thead th:nth-child(3){min-width:120px}
-tbody td{padding:16px 14px;vertical-align:top;border-top:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:900px;font-size:13px;letter-spacing:-.01em}
+thead th{position:sticky;top:0;background:var(--tile);color:var(--faint);font-weight:500;font-size:11.5px;text-align:left;padding:16px 10px 10px;white-space:nowrap;border-bottom:1px solid var(--line)}
+thead th:nth-child(2){min-width:190px} thead th:nth-child(4){min-width:112px} td:nth-child(4),td:nth-child(3){white-space:nowrap}
+tbody td{padding:12px 10px;vertical-align:top;border-top:1px solid var(--line);line-height:1.35}
+td.stack span{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+td.stack span .miss{color:var(--faint)}
 tbody tr:first-child td{border-top:0}
 tbody tr{cursor:pointer}
 tbody tr:hover td{background:var(--green-tint)}
-td .sub{display:block;font-size:12.5px;color:var(--muted);margin-top:3px}
-td.n{width:48px} td.b{font-weight:600}
+td .sub{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+td.n{width:40px;padding-right:0} td.b{font-weight:600}
 .miss{color:var(--faint)}
 
 /* details */
@@ -318,7 +320,7 @@ td.n{width:48px} td.b{font-weight:600}
   <div class="wrap wide">
     <div class="sec-head">
       <h2>Comparison</h2>
-      <p>Rates are per SF per month. Monthly rent is base rent plus NNN at the listed square footage. Click a row to jump to that space.</p>
+      <p>Rates are per SF per month; monthly rent is base plus NNN at the listed size. Click a row for photos, floor plan and full specs.</p>
     </div>
     <div class="segrow"><div class="seg" role="group" aria-label="Sort the table">
       <button type="button" id="s-n" data-sort="n" aria-pressed="true">Survey order</button>
@@ -329,7 +331,7 @@ td.n{width:48px} td.b{font-weight:600}
     </div></div>
     <div class="tablebox">
       <table class="num">
-        <thead><tr><th>#</th><th>Property</th><th>Available SF</th><th>Office / warehouse</th><th>Clear</th><th>Loading</th><th>Power</th><th>Base rate /SF/mo</th><th>NNN /SF/mo</th><th>Est. monthly rent</th><th>Available</th><th>Deal</th></tr></thead>
+        <thead><tr><th>#</th><th>Property</th><th>SF</th><th>Office / whse</th><th>Clear · Loading · Power</th><th>Rate /SF/mo</th><th>Est. monthly</th><th>Available</th></tr></thead>
         <tbody id="tbody"></tbody>
       </table>
     </div>
@@ -498,11 +500,13 @@ function renderTable(key){
   const rows = [...DATA].sort((a,b) => key === 'n' ? a.n - b.n : key === 'sf' ? b.sf - a.sf : key === 'mi' ? a.mi - b.mi || a.n - b.n : key === 'rent' ? a.totalMo - b.totalMo : a.availSort - b.availSort || a.n - b.n);
   $('#tbody').innerHTML = rows.map(p => `<tr data-id="${p.id}" tabindex="0">
     <td class="n"><span class="dot">${p.n}</span></td>
-    <td class="b">${esc(p.name)}<span class="sub">${esc(p.addr)}, ${esc(p.city)} · ${p.mi} mi</span></td>
+    <td class="b">${esc(p.name)}<span class="sub">${esc(p.city)} · ${p.mi} mi · ${esc(p.deal)}</span></td>
     <td class="b">${fmt(p.sf)}${p.sfnote ? `<span class="sub">${esc(p.sfnote)}</span>` : ''}</td>
-    <td>${p.office ? `${fmt(p.office)} / ${fmt(p.wh)}<span class="sub">${p.officePct}% office</span>` : `<span class="miss">Modular: office + warehouse</span>`}</td>
-    <td>${missing(p.clear)}</td><td>${esc(p.doors)}</td><td>${missing(p.power)}</td>
-    <td>${esc(p.rate)}</td><td>${missing(p.nnn)}</td><td class="b">$${fmt(p.totalMo)}<span class="sub">$${p.psfMo.toFixed(2)}/SF${p.rentNote ? ' · ' + esc(p.rentNote) : ''}</span></td><td>${chip(p)}${p.availNote ? `<span class="sub">${esc(p.availNote)}</span>` : ''}</td><td>${esc(p.deal)}</td></tr>`).join('');
+    <td>${p.office ? `${fmt(p.office)} / ${fmt(p.wh)}<span class="sub">${p.officePct}% office</span>` : `<span class="miss">Modular</span>`}</td>
+    <td class="stack">${missing(p.clear)}<span>${esc(p.doors)}</span><span>${missing(p.power)}</span></td>
+    <td>${esc(p.rate)}<span class="sub">+ ${missing(p.nnn)} NNN</span></td>
+    <td class="b">$${fmt(p.totalMo)}<span class="sub">$${p.psfMo.toFixed(2)}/SF${p.rentNote ? ' · ' + esc(p.rentNote) : ''}</span></td>
+    <td>${chip(p)}</td></tr>`).join('');
   document.querySelectorAll('#tbody tr').forEach(tr => {
     tr.addEventListener('click', () => goTo(tr.dataset.id));
     tr.addEventListener('keydown', e => { if (e.key === 'Enter') goTo(tr.dataset.id); });
